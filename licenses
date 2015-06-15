@@ -8,11 +8,11 @@ ITEM_DETAILS='//*[@id="license-text"]'
 LICENSE="$1"
 if [[ "$LICENSE" = /licenses/* ]]
 then
-	xidel -q -e "$ITEM_DETAILS" "$API$LICENSE"
+	xidel -q -e "$ITEM_DETAILS" "$(curl "$API$LICENSE" 2>/dev/null)"
 else
-	eval "$(xidel -q -e "$LIST_ITEM" "$API/licenses/" --output-format=bash)"
+	eval "$(xidel -q -e "$LIST_ITEM" "$(curl "$API/licenses/" 2>/dev/null)" --output-format=bash)"
 	for ((i=0; i<${#title[@]}; i++))
 	do
-		echo -e "${title[$i]}\tread !$SCRIPT ${url[$i]}"
+		echo -e "${title[$i]}\t.!$SCRIPT ${url[$i]}"
 	done
 fi
