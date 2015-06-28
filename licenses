@@ -1,12 +1,12 @@
 #!/bin/bash -e
-SCRIPT="$(realpath "$BASH_SOURCE")"
+SCRIPT=$(realpath "$BASH_SOURCE")
 
 API='http://choosealicense.com'
 LIST_ITEM='<h3 class="license-family-name"><a>{title:=.,url:=@href}</a></h3>*' 
 ITEM_DETAILS='//*[@id="license-text"]' 
 
-LICENSE="$1"
-if [[ "$LICENSE" = /licenses/* ]]
+LICENSE=$1
+if [[ $LICENSE = /licenses/* ]]
 then
 	xidel -q -e "$ITEM_DETAILS" "$(curl "$API$LICENSE" 2>/dev/null)"
 else
